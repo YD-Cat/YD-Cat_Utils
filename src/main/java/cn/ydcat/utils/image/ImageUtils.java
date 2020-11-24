@@ -183,4 +183,39 @@ public class ImageUtils {
         File saveFile=new File(savePath);
         return getImage4Url(urlPath,saveFile);
     }
+
+    /**
+     * 高斯模糊
+     * @param img 原图片
+     * @param radius 模糊权重
+     * @return 模糊后图片
+     * @throws IOException
+     */
+    public static BufferedImage blur(BufferedImage img, int radius) throws IOException {
+        return GaussianBlurUtil.blur(img, radius);
+    }
+
+    /**
+     * 高斯模糊
+     * @param img 原图片
+     * @param radius 模糊权重
+     * @return 模糊后图片
+     * @throws IOException
+     */
+    public static BufferedImage blur(File img, int radius) throws IOException {
+        BufferedImage file = ImageIO.read(img);
+        return blur(file, radius);
+    }
+
+    /**
+     * 高斯模糊
+     * @param path 原图片路径
+     * @param radius 模糊权重
+     * @return 模糊后图片
+     * @throws IOException
+     */
+    public static BufferedImage blur(String path, int radius) throws IOException {
+        BufferedImage img = ImageIO.read(new File(path));
+        return blur(img, radius);
+    }
 }
