@@ -14,9 +14,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -352,16 +352,10 @@ public class HttpClientUtils {
         }
         HttpResult result = new HttpResult();
         // 公用
-        InputStream content = response.getEntity().getContent();
-        byte[] by=new byte[1024];
-        int tem;
-        StringBuilder sb = new StringBuilder();
-        while((tem=content.read(by))!=-1){
-            sb.append(new String(by,0, tem));
-        }
+        String content = EntityUtils.toString(response.getEntity());
         int code = response.getStatusLine().getStatusCode();
         result.setCode(code);
-        result.setResult(sb.toString());
+        result.setResult(content);
         response.close();
         return result;
     }
