@@ -24,6 +24,9 @@ public class ZipUtils {
         if(file.isDirectory()){
             throw new ZipException("compressFile不允许压缩文件夹");
         }
+        if (!basePath.endsWith("/")) {
+            basePath += "/";
+        }
         String path = basePath + file.getName();
         zos.putNextEntry(new ZipEntry(path));
 
@@ -45,6 +48,9 @@ public class ZipUtils {
      * @throws IOException
      */
     public static void compress(ZipOutputStream zos, File file, String basePath) throws IOException {
+        if (!basePath.endsWith("/")) {
+            basePath += "/";
+        }
         if (file.isFile()) {
             compressFile(zos, file, basePath);
         }else if(file.isDirectory()){
